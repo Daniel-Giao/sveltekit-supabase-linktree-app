@@ -1,6 +1,5 @@
 <script lang="ts">
   import { page } from "$app/stores";
-
   $: email = $page.params.email;
 </script>
 
