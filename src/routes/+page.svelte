@@ -1,2 +1,9 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div class="hero min-h-screen bg-base-300">
+    <div class="hero-content">
+        <div class="max-w-md text-center">
+            <h1 class="font-bold text-4xl">Welcome to PokePage</h1>
+            <div class="py-6">Create an account to make your own PokePage with your own unique URL!</div>
+            <a href="/login" class="btn btn-primary">Create An Account</a>
+        </div>
+    </div>
+</div>
