@@ -15,6 +15,7 @@
     pokemon_ids: [1, 2, 3],
   };
   let isModalOpen = false;
+  let searchInput = "";
 
   async function saveProfile() {
     const { data: profileData, error: profileError } = await supabase
@@ -68,7 +69,8 @@
   });
 
   async function savePageEdits() {
-    console.log("Saving edits");
+    await saveProfile();
+    await refreshPokemonData();
     isModalOpen = false;
   }
 
@@ -134,18 +136,28 @@
             />
             <p class="p-2">Select your pokemon</p>
             <div class="grid grid-cols-3 overflow-y-scroll max-h-[600px] m-3">
+              <div class="col-span-3 m-3">
+                <input
+                  type="text"
+                  class="input input-bordered w-full"
+                  placeholder="Search for a pokemon"
+                  bind:value={searchInput}
+                />
+              </div>
               {#each pokemonList as pokemon, index}
-                <button
-                  class={"card bg-slate-700 h-12 p-1 m-1 justify-center items-center " +
-                    (profile.pokemon_ids.includes(index + 1)
-                      ? "border-2 border-blue-600"
-                      : "")}
-                  on:click={() => togglePokemon(index + 1)}
-                >
-                  <div class="text-center">
-                    <h2 class="text-white text-xl">{pokemon.name}</h2>
-                  </div>
-                </button>
+                {#if pokemon.name.includes(searchInput)}
+                  <button
+                    class={"card bg-slate-700 h-12 p-1 m-1 justify-center items-center " +
+                      (profile.pokemon_ids.includes(index + 1)
+                        ? "border-2 border-blue-600"
+                        : "")}
+                    on:click={() => togglePokemon(index + 1)}
+                  >
+                    <div class="text-center">
+                      <h2 class="text-white text-xl">{pokemon.name}</h2>
+                    </div>
+                  </button>
+                {/if}
               {/each}
             </div>
             <button class="btn btn-success" on:click={() => savePageEdits()}>
