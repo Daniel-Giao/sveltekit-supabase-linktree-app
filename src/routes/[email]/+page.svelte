@@ -1,6 +1,11 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { getPokemonList, getPokemon } from "$lib/pokemonAPI";
+  export let data;
+
+  let { supabase, session } = data;
+  $: ({ supabase, session } = data);
+
   $: email = $page.params.email;
 
   let pokemonList: any = [];
